@@ -1,0 +1,1507 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plateforme Brevet 3ème 2026 — Version étendue</title>
+<style>
+:root{
+  --bg:#0a0b10; --surface:rgba(18,20,30,.72); --card:rgba(23,26,38,.82);
+  --border:rgba(255,255,255,.09); --text:#eef1ff; --muted:#9aa3b2;
+  --math:#6ea8ff; --fr:#ff7895; --hg:#ffb15c; --sci:#66e7a6; --tech:#b283ff;
+  --shadow:0 18px 45px rgba(0,0,0,.34);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0; min-height:100vh; color:var(--text); font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,sans-serif;
+  background:
+    radial-gradient(circle at top, rgba(110,168,255,.18), transparent 35%),
+    radial-gradient(circle at right, rgba(178,131,255,.12), transparent 30%),
+    linear-gradient(180deg,#090a0f 0%, #0f1220 100%);
+}
+a{color:inherit}
+code{
+  padding:.12rem .35rem; border-radius:.4rem; background:rgba(255,255,255,.08);
+  font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:.95em;
+}
+header{
+  position:sticky; top:0; z-index:20;
+  backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+  background:linear-gradient(135deg, rgba(12,14,22,.92), rgba(18,20,34,.82));
+  border-bottom:1px solid var(--border);
+  box-shadow:var(--shadow);
+}
+.header-inner{max-width:1300px; margin:0 auto; padding:1.2rem 1rem 1rem;}
+h1{
+  margin:0; font-size:clamp(1.55rem,3vw,2.6rem); letter-spacing:-.04em;
+  background:linear-gradient(135deg,#fff 0%, #b9c7ff 100%);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.subtitle{margin-top:.45rem; color:var(--muted); font-size:.95rem; line-height:1.5}
+.nav-row{display:flex; gap:.5rem; flex-wrap:wrap; margin-top:1rem}
+.tab{
+  appearance:none; border:1px solid var(--border); color:var(--muted); background:rgba(255,255,255,.04);
+  padding:.62rem .9rem; border-radius:999px; cursor:pointer; font-weight:700; transition:.2s ease;
+}
+.tab:hover{transform:translateY(-1px); color:var(--text); background:rgba(255,255,255,.08)}
+.tab.active{color:#081019; background:var(--text); border-color:transparent}
+main{max-width:1300px; margin:0 auto; padding:1.3rem 1rem 4rem}
+.summary-card,.pane,.chapter-card{
+  background:var(--surface); border:1px solid var(--border); border-radius:24px;
+  box-shadow:var(--shadow); backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px);
+}
+.summary-card{padding:1.2rem 1.2rem 1.3rem; margin-bottom:1rem}
+.summary-card h2,.pane-head h2{margin:.1rem 0 .45rem; font-size:1.35rem}
+.summary-card p,.pane-head p{margin:0; color:var(--muted)}
+.summary-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:.8rem; margin-top:1rem}
+.summary-subject{
+  border:1px solid var(--border); border-radius:18px; padding:1rem; background:rgba(255,255,255,.03);
+}
+.summary-subject h3{margin:0 0 .2rem; font-size:1rem}
+.summary-subject p{margin:.1rem 0 .6rem; color:var(--muted); font-size:.92rem}
+.summary-subject ul{margin:0; padding-left:1.1rem; line-height:1.7}
+.summary-subject li{margin:.06rem 0}
+.summary-subject.maths{border-color:rgba(110,168,255,.35)}
+.summary-subject.francais{border-color:rgba(255,120,149,.35)}
+.summary-subject.histoire{border-color:rgba(255,177,92,.35)}
+.summary-subject.science{border-color:rgba(102,231,166,.35)}
+.summary-subject.techno{border-color:rgba(178,131,255,.35)}
+
+.pane{display:none; padding:1.2rem; margin-bottom:1rem}
+.pane.active{display:block}
+.pane-head{padding:.2rem .1rem 1rem}
+.chapter-card{padding:1.15rem; margin:1rem 0; border-left:4px solid transparent}
+.chapter-card.maths{border-left-color:var(--math)}
+.chapter-card.francais{border-left-color:var(--fr)}
+.chapter-card.histoire{border-left-color:var(--hg)}
+.chapter-card.science{border-left-color:var(--sci)}
+.chapter-card.techno{border-left-color:var(--tech)}
+.chapter-title{margin:.1rem 0 1rem; font-size:1.3rem; letter-spacing:-.02em}
+.block{margin:0 0 1rem}
+.section-label{
+  display:inline-block; margin-bottom:.65rem; padding:.28rem .6rem; border-radius:999px; font-size:.72rem;
+  font-weight:800; text-transform:uppercase; letter-spacing:.08em; border:1px solid var(--border); background:rgba(255,255,255,.04)
+}
+.chapter-card.maths .section-label{color:var(--math); background:rgba(110,168,255,.08)}
+.chapter-card.francais .section-label{color:var(--fr); background:rgba(255,120,149,.08)}
+.chapter-card.histoire .section-label{color:var(--hg); background:rgba(255,177,92,.08)}
+.chapter-card.science .section-label{color:var(--sci); background:rgba(102,231,166,.08)}
+.chapter-card.techno .section-label{color:var(--tech); background:rgba(178,131,255,.08)}
+.debutant-text{
+  padding:1rem 1rem 1rem 1rem; border-left:3px solid currentColor; border-radius:16px;
+  background:rgba(255,255,255,.03); line-height:1.75
+}
+.chapter-card.maths .debutant-text{border-left-color:var(--math)}
+.chapter-card.francais .debutant-text{border-left-color:var(--fr)}
+.chapter-card.histoire .debutant-text{border-left-color:var(--hg)}
+.chapter-card.science .debutant-text{border-left-color:var(--sci)}
+.chapter-card.techno .debutant-text{border-left-color:var(--tech)}
+.table-essentiel{
+  width:100%; border-collapse:collapse; overflow:hidden; border-radius:16px; background:rgba(0,0,0,.12); margin-top:.2rem
+}
+.table-essentiel th,.table-essentiel td{
+  padding:.82rem .85rem; border-bottom:1px solid rgba(255,255,255,.08); vertical-align:top; text-align:left;
+}
+.table-essentiel th{font-size:.76rem; text-transform:uppercase; letter-spacing:.07em; color:var(--muted); background:rgba(255,255,255,.03)}
+.table-essentiel tr:last-child td{border-bottom:none}
+.formula{
+  margin-top:.8rem; padding:.9rem 1rem; border-radius:16px; background:rgba(255,255,255,.04);
+  border-left:3px solid currentColor; line-height:1.7
+}
+.chapter-card.maths .formula{border-left-color:var(--math)}
+.chapter-card.francais .formula{border-left-color:var(--fr)}
+.chapter-card.histoire .formula{border-left-color:var(--hg)}
+.chapter-card.science .formula{border-left-color:var(--sci)}
+.chapter-card.techno .formula{border-left-color:var(--tech)}
+.svg-container{
+  display:flex; justify-content:center; align-items:center; padding:1rem; border-radius:18px;
+  background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06); overflow:hidden;
+}
+.svg-container.maths{color:var(--math)}
+.svg-container.francais{color:var(--fr)}
+.svg-container.histoire{color:var(--hg)}
+.svg-container.science{color:var(--sci)}
+.svg-container.techno{color:var(--tech)}
+.svg{width:100%; max-width:520px; height:auto}
+.question-box{
+  border-radius:18px; padding:1rem; background:rgba(255,255,255,.03); border:1px solid rgba(255,255,255,.06)
+}
+.question-text{line-height:1.7; font-weight:600}
+.btn-group{display:flex; flex-wrap:wrap; gap:.55rem; margin-top:.8rem}
+.btn{
+  appearance:none; border:1px solid var(--border); background:rgba(255,255,255,.05); color:var(--text);
+  border-radius:12px; padding:.55rem .8rem; cursor:pointer; font-weight:700; transition:.18s ease
+}
+.btn:hover{transform:translateY(-1px); border-color:rgba(255,255,255,.18); background:rgba(255,255,255,.09)}
+.answer-box{
+  display:none; margin-top:.9rem; padding:.95rem 1rem; border-radius:16px; background:rgba(255,255,255,.04);
+  border-left:3px solid currentColor; line-height:1.7
+}
+.chapter-card.maths .answer-box{border-left-color:var(--math)}
+.chapter-card.francais .answer-box{border-left-color:var(--fr)}
+.chapter-card.histoire .answer-box{border-left-color:var(--hg)}
+.chapter-card.science .answer-box{border-left-color:var(--sci)}
+.chapter-card.techno .answer-box{border-left-color:var(--tech)}
+.answer-box.show{display:block}
+.astuce-box{
+  padding:1rem; border-radius:16px; background:linear-gradient(135deg, rgba(255,255,255,.06), rgba(255,255,255,.03));
+  border:1px solid rgba(255,255,255,.08); line-height:1.7; font-weight:700
+}
+.highlight{padding:.08rem .3rem; border-radius:.35rem; background:rgba(255,255,255,.1)}
+@media (max-width: 720px){
+  main{padding:.9rem .7rem 3rem}
+  .pane,.chapter-card,.summary-card{border-radius:18px}
+  .table-essentiel{display:block; overflow:auto}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="header-inner">
+    <h1>Plateforme Brevet 3ème 2026 — Version étendue</h1>
+    <div class="subtitle">Socle complet de révision, chapitres essentiels, corrections guidées et schémas SVG intégrés.</div>
+    <div class="nav-row">
+      <button class="tab active" data-tab="maths">Maths</button>
+      <button class="tab" data-tab="fr">Français</button>
+      <button class="tab" data-tab="hg">Hist-Géo</button>
+      <button class="tab" data-tab="sci">Sciences</button>
+      <button class="tab" data-tab="tech">Techno</button>
+    </div>
+  </div>
+</header>
+
+<main>
+<section class="summary-card"><h2>Sommaire complet</h2><div class="summary-grid">
+
+        <div class="summary-subject maths">
+          <h3>Mathématiques</h3>
+          <p>9 chapitre(s) essentiel(s)</p>
+          <ul><li><a href="#m1">1. Relatifs, fractions &amp; priorités de calcul</a></li><li><a href="#m2">2. Proportionnalité, pourcentages &amp; échelles</a></li><li><a href="#m3">3. Théorème de Pythagore</a></li><li><a href="#m4">4. Théorème de Thalès</a></li><li><a href="#m5">5. Trigonométrie</a></li><li><a href="#m6">6. Calcul littéral &amp; identités remarquables</a></li><li><a href="#m7">7. Fonctions</a></li><li><a href="#m8">8. Statistiques &amp; probabilités</a></li><li><a href="#m9">9. Géométrie dans l&#x27;espace</a></li></ul>
+        </div>
+
+        <div class="summary-subject francais">
+          <h3>Français</h3>
+          <p>4 chapitre(s) essentiel(s)</p>
+          <ul><li><a href="#f1">1. Classes grammaticales</a></li><li><a href="#f2">2. Fonctions grammaticales</a></li><li><a href="#f3">3. Orthographe, homophones &amp; accords</a></li><li><a href="#f4">4. Participe passé, figures de style &amp; argumentation</a></li></ul>
+        </div>
+
+        <div class="summary-subject histoire">
+          <h3>Histoire-Géographie &amp; EMC</h3>
+          <p>4 chapitre(s) essentiel(s)</p>
+          <ul><li><a href="#h1">1. Première Guerre mondiale (1914-1918)</a></li><li><a href="#h2">2. Seconde Guerre mondiale (1939-1945)</a></li><li><a href="#h3">3. Guerre froide</a></li><li><a href="#h4">4. France depuis 1944, Europe &amp; EMC</a></li></ul>
+        </div>
+
+        <div class="summary-subject science">
+          <h3>Sciences</h3>
+          <p>5 chapitre(s) essentiel(s)</p>
+          <ul><li><a href="#s1">1. Génétique &amp; hérédité</a></li><li><a href="#s2">2. Reproduction, puberté &amp; contraception</a></li><li><a href="#s3">3. Immunité, microbes &amp; vaccination</a></li><li><a href="#s4">4. Énergie, rendement &amp; conversions</a></li><li><a href="#s5">5. Électricité &amp; circuits</a></li></ul>
+        </div>
+
+        <div class="summary-subject techno">
+          <h3>Technologie</h3>
+          <p>3 chapitre(s) essentiel(s)</p>
+          <ul><li><a href="#t1">1. Algorithmique &amp; programmation</a></li><li><a href="#t2">2. Réseaux, internet &amp; données</a></li><li><a href="#t3">3. Objets techniques &amp; démarche de projet</a></li></ul>
+        </div>
+</div></section>
+
+
+<section class="pane" id="pane-maths">
+  <div class="pane-head">
+    <h2>Mathématiques</h2>
+    <p>9 chapitre(s)</p>
+  </div>
+  
+<article class="chapter-card maths" id="m1">
+  <h3 class="chapter-title">1. Relatifs, fractions & priorités de calcul</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Les nombres relatifs sont les nombres <strong>avec un signe</strong> : positif ou négatif. Une fraction, c'est une part d'un tout. Les priorités de calcul disent quoi faire d'abord : les parenthèses, puis les multiplications/divisions, puis les additions/soustractions. Imagine une file d'attente : certaines opérations passent avant les autres.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>À retenir</th><th>Exemple</th></tr><tr><td>Nombre relatif</td><td><code>+3</code> ou <code>-7</code></td><td>Température, dette, altitude</td></tr><tr><td>Fraction</td><td>Partage d'un tout</td><td><code>3/4</code> d'une pizza</td></tr><tr><td>Priorités</td><td>Parenthèses → × ÷ → + -</td><td><code>3 + 2×5 = 13</code></td></tr><tr><td>Valeur absolue</td><td>Distance à 0</td><td><code>|-4| = 4</code></td></tr></table>
+    <div class='formula'><strong>Règle clé :</strong> on calcule <span class='highlight'>dans l'ordre</span> pour éviter les erreurs.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox='0 0 420 240' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <line x1='40' y1='120' x2='380' y2='120' stroke='currentColor' stroke-width='3'/>
+      <line x1='210' y1='40' x2='210' y2='200' stroke='currentColor' stroke-width='2' opacity='0.5'/>
+      <circle cx='120' cy='120' r='10' fill='currentColor'/>
+      <circle cx='300' cy='120' r='10' fill='currentColor'/>
+      <text x='112' y='150' fill='currentColor' font-size='14'>-4</text>
+      <text x='292' y='150' fill='currentColor' font-size='14'>+5</text>
+      <text x='205' y='35' fill='currentColor' font-size='14' text-anchor='middle'>droite graduée</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m1">Calculer : 3 + 2 × (5 - 1) - 4</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m1')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m1')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m1"><strong>Correction :</strong><br>1) Parenthèses : (5 - 1) = 4<br>2) Multiplication : 2 × 4 = 8<br>3) Addition/soustraction : 3 + 8 - 4 = <span class='highlight'>7</span><br><br><strong>Cheminement :</strong> on respecte les priorités avant de calculer de gauche à droite.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Parenthèses, Puis, Puis, Puis » : P P P = Parenthèses, Produits, Plus/Moins.</div>
+  </section>
+</article>
+
+<article class="chapter-card maths" id="m2">
+  <h3 class="chapter-title">2. Proportionnalité, pourcentages & échelles</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La proportionnalité, c'est quand deux grandeurs avancent <strong>au même rythme</strong>. Si tu doubles l'une, tu doubles l'autre. Une échelle est une proportion : une carte ne garde que le même dessin en plus petit. Les pourcentages servent à comparer à 100 : 25% signifie 25 sur 100.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Formule</th><th>Exemple</th></tr><tr><td>Coefficient de proportionnalité</td><td><code>y = k×x</code></td><td>Si 2 kg coûtent 6 €, alors 1 kg coûte 3 €</td></tr><tr><td>Pourcentage</td><td><code>part / total × 100</code></td><td><code>12/60 = 20%</code></td></tr><tr><td>Échelle</td><td><code>distance carte / distance réelle</code></td><td>1:100 000</td></tr><tr><td>Vitesse</td><td><code>d = v × t</code></td><td><code>50 km/h × 2 h = 100 km</code></td></tr></table>
+    <div class='formula'><strong>Produit en croix :</strong> si <code>a/b = c/d</code>, alors <code>a×d = b×c</code>.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox='0 0 420 240' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <rect x='55' y='60' width='120' height='90' rx='10' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='250' y='40' width='95' height='110' rx='10' fill='none' stroke='currentColor' stroke-width='3'/>
+      <line x1='175' y1='105' x2='250' y2='95' stroke='currentColor' stroke-width='3' marker-end='url(#x)'/>
+      <text x='112' y='112' text-anchor='middle' fill='currentColor' font-size='14'>carte</text>
+      <text x='298' y='100' text-anchor='middle' fill='currentColor' font-size='14'>réel</text>
+      <text x='210' y='175' text-anchor='middle' fill='currentColor' font-size='14'>même forme, taille différente</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m2">Une recette pour 4 personnes utilise 300 g de farine. Combien faut-il pour 6 personnes ?</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m2')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m2')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m2"><strong>Correction :</strong><br>On est en proportionnalité.<br>4 personnes → 300 g<br>1 personne → 300 / 4 = 75 g<br>6 personnes → 75 × 6 = <span class='highlight'>450 g</span><br><br><strong>Cheminement :</strong> on calcule d'abord pour 1, puis on remonte à 6.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Si on double, on double » : c'est le test le plus simple pour voir une proportionnalité.</div>
+  </section>
+</article>
+
+<article class="chapter-card maths" id="m3">
+  <h3 class="chapter-title">3. Théorème de Pythagore</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Dans un triangle rectangle, le côté le plus long s'appelle l'<strong>hypoténuse</strong>. Pythagore dit que le carré de l'hypoténuse vaut la somme des carrés des deux autres côtés. C'est une règle parfaite pour calculer un côté manquant sans mesurer.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Mot</th><th>Sens</th><th>À connaître</th></tr><tr><td>Triangle rectangle</td><td>Un angle droit</td><td>90°</td></tr><tr><td>Hypoténuse</td><td>Le plus long côté</td><td>Opposé à l'angle droit</td></tr><tr><td>Théorème</td><td><code>c² = a² + b²</code></td><td>Dans un triangle rectangle</td></tr><tr><td>Réciproque</td><td>Si l'égalité est vraie, le triangle est rectangle</td><td>Détecter un angle droit</td></tr></table>
+    <div class='formula'><strong>Formule :</strong> <code>BC² = AB² + AC²</code> si le triangle est rectangle en A.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox="0 0 420 260" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <defs><marker id="arr1" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto"><path d="M0,0 L0,6 L9,3 z" fill="#fff"/></marker></defs>
+    <line x1="70" y1="210" x2="320" y2="210" stroke="currentColor" stroke-width="3"/>
+    <line x1="70" y1="210" x2="70" y2="50" stroke="currentColor" stroke-width="3"/>
+    <line x1="70" y1="50" x2="320" y2="210" stroke="currentColor" stroke-width="3"/>
+    <rect x="70" y="190" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"/>
+    <text x="45" y="132" fill="currentColor" font-size="18">a</text>
+    <text x="195" y="235" fill="currentColor" font-size="18">b</text>
+    <text x="205" y="120" fill="currentColor" font-size="18">c</text>
+    <text x="135" y="35" fill="currentColor" font-size="14">triangle rectangle</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m3">Un triangle rectangle a pour côtés de l'angle droit 6 cm et 8 cm. Calculer l'hypoténuse.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m3')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m3')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m3"><strong>Correction :</strong><br>1) Pythagore : c² = 6² + 8²<br>2) c² = 36 + 64 = 100<br>3) c = √100 = <span class='highlight'>10 cm</span><br><br><strong>Cheminement :</strong> on additionne les carrés des deux petits côtés, puis on prend la racine.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Le grand côté carré = les deux petits carrés ».</div>
+  </section>
+</article>
+
+<article class="chapter-card maths" id="m4">
+  <h3 class="chapter-title">4. Théorème de Thalès</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Thalès sert quand on a deux triangles <strong>alignés et parallèles</strong>. Dans cette configuration, les longueurs gardent le même rapport. C'est très utile pour calculer une distance inaccessible ou prouver que deux droites sont parallèles.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Situation</th><th>Formule</th><th>Usage</th></tr><tr><td>Triangles emboîtés</td><td><code>AM/AB = AN/AC = MN/BC</code></td><td>Calcul de longueurs</td></tr><tr><td>Réciproque</td><td>Si deux rapports sont égaux, alors les droites sont parallèles</td><td>Prouver un parallélisme</td></tr><tr><td>Produit en croix</td><td><code>a/b = c/d → a×d = b×c</code></td><td>Résoudre une inconnue</td></tr><tr><td>Attention</td><td>Les points doivent être alignés</td><td>Sinon, Thalès ne marche pas</td></tr></table>
+    <div class='formula'><strong>Astuce :</strong> on écrit toujours les rapports dans le même ordre sur les deux triangles.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox="0 0 420 260" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <line x1="50" y1="40" x2="140" y2="210" stroke="currentColor" stroke-width="3"/>
+    <line x1="50" y1="40" x2="350" y2="210" stroke="currentColor" stroke-width="3"/>
+    <line x1="140" y1="210" x2="350" y2="210" stroke="currentColor" stroke-width="3"/>
+    <line x1="90" y1="110" x2="240" y2="110" stroke="currentColor" stroke-width="3" stroke-dasharray="6 5"/>
+    <circle cx="50" cy="40" r="4" fill="currentColor"/>
+    <circle cx="90" cy="110" r="4" fill="currentColor"/>
+    <circle cx="240" cy="110" r="4" fill="currentColor"/>
+    <circle cx="140" cy="210" r="4" fill="currentColor"/>
+    <circle cx="350" cy="210" r="4" fill="currentColor"/>
+    <text x="40" y="32" fill="currentColor" font-size="18">A</text>
+    <text x="80" y="102" fill="currentColor" font-size="18">M</text>
+    <text x="236" y="102" fill="currentColor" font-size="18">N</text>
+    <text x="130" y="232" fill="currentColor" font-size="18">B</text>
+    <text x="344" y="232" fill="currentColor" font-size="18">C</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m4">Dans un triangle ABC, M est sur [AB], N est sur [AC] et (MN)//(BC). On sait AM = 4, AB = 10 et AN = 6. Calculer AC.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m4')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m4')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m4"><strong>Correction :</strong><br>Thalès : AM/AB = AN/AC<br>4/10 = 6/AC<br>Produit en croix : 4×AC = 60<br>AC = 60/4 = <span class='highlight'>15 cm</span><br><br><strong>Cheminement :</strong> les rapports de longueurs entre les deux triangles sont égaux.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Même ordre, même rapport ».</div>
+  </section>
+</article>
+
+<article class="chapter-card maths" id="m5">
+  <h3 class="chapter-title">5. Trigonométrie</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La trigonométrie sert à trouver un côté ou un angle dans un triangle rectangle grâce à <strong>sinus, cosinus, tangente</strong>. L'idée est simple : si tu connais un angle et un côté, tu peux retrouver les autres sans les mesurer directement.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Fonction</th><th>Formule</th><th>Quand l&#x27;utiliser</th></tr><tr><td>sinus</td><td><code>sin = opposé / hypoténuse</code></td><td>Angle + hypoténuse</td></tr><tr><td>cosinus</td><td><code>cos = adjacent / hypoténuse</code></td><td>Angle + hypoténuse</td></tr><tr><td>tangente</td><td><code>tan = opposé / adjacent</code></td><td>Angle + deux côtés</td></tr><tr><td>Inverse</td><td><code>sin⁻¹, cos⁻¹, tan⁻¹</code></td><td>Trouver un angle</td></tr></table>
+    <div class='formula'><strong>Mémo ultra court :</strong> <span class='highlight'>SOH CAH TOA</span>.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox='0 0 420 240' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <line x1='60' y1='190' x2='330' y2='190' stroke='currentColor' stroke-width='3'/>
+      <line x1='60' y1='190' x2='60' y2='60' stroke='currentColor' stroke-width='3'/>
+      <line x1='60' y1='60' x2='330' y2='190' stroke='currentColor' stroke-width='3'/>
+      <rect x='60' y='170' width='16' height='16' fill='none' stroke='currentColor' stroke-width='2'/>
+      <text x='180' y='212' fill='currentColor' font-size='14'>adjacent</text>
+      <text x='18' y='130' fill='currentColor' font-size='14'>opposé</text>
+      <text x='215' y='100' fill='currentColor' font-size='14'>hypoténuse</text>
+      <text x='95' y='176' fill='currentColor' font-size='14'>θ</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m5">Dans un triangle rectangle, l'angle vaut 35° et l'hypoténuse vaut 12 cm. Calculer le côté opposé.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m5')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m5')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m5"><strong>Correction :</strong><br>1) sin(35°) = opposé / 12<br>2) opposé = 12 × sin(35°)<br>3) opposé ≈ 12 × 0,574 = <span class='highlight'>6,9 cm</span><br><br><strong>Cheminement :</strong> on choisit sinus car on connaît l'hypoténuse et on cherche le côté opposé.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« SOH CAH TOA » : Sinus Opposé/Hypoténuse, Cosinus Adjacent/Hypoténuse, Tangente Opposé/Adjacent.</div>
+  </section>
+</article>
+
+<article class="chapter-card maths" id="m6">
+  <h3 class="chapter-title">6. Calcul littéral & identités remarquables</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Le calcul littéral, c'est faire des maths avec des lettres. Au lieu d'écrire tous les nombres, on garde une lettre pour représenter une valeur inconnue. Les identités remarquables sont des raccourcis très pratiques pour développer plus vite.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Action</th><th>Règle</th><th>Exemple</th></tr><tr><td>Développer</td><td><code>k(a+b)=ka+kb</code></td><td><code>3(x+2)=3x+6</code></td></tr><tr><td>Factoriser</td><td>Sortir le facteur commun</td><td><code>5x+10=5(x+2)</code></td></tr><tr><td>Carré d'une somme</td><td><code>(a+b)² = a² + 2ab + b²</code></td><td><code>(x+3)²</code></td></tr><tr><td>Différence de deux carrés</td><td><code>(a-b)(a+b)=a²-b²</code></td><td><code>(x-4)(x+4)</code></td></tr></table>
+    <div class='formula'><strong>Point à ne pas rater :</strong> le <span class='highlight'>2ab</span> apparaît dans les carrés de somme et de différence.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox='0 0 420 240' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <rect x='60' y='60' width='120' height='120' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='60' y='60' width='80' height='80' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='140' y='60' width='40' height='80' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='60' y='140' width='80' height='40' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='140' y='140' width='40' height='40' fill='none' stroke='currentColor' stroke-width='3'/>
+      <text x='100' y='105' text-anchor='middle' fill='currentColor' font-size='14'>a²</text>
+      <text x='160' y='105' text-anchor='middle' fill='currentColor' font-size='14'>ab</text>
+      <text x='100' y='165' text-anchor='middle' fill='currentColor' font-size='14'>ab</text>
+      <text x='160' y='165' text-anchor='middle' fill='currentColor' font-size='14'>b²</text>
+      <text x='270' y='115' fill='currentColor' font-size='16'>(a+b)²</text>
+      <text x='270' y='145' fill='currentColor' font-size='16'>= a² + 2ab + b²</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m6">Développer et réduire : (2x + 3)(x - 5)</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m6')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m6')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m6"><strong>Correction :</strong><br>(2x + 3)(x - 5) = 2x×x + 2x×(-5) + 3×x + 3×(-5)<br>= 2x² - 10x + 3x - 15<br>= <span class='highlight'>2x² - 7x - 15</span><br><br><strong>Cheminement :</strong> chaque terme de la première parenthèse multiplie chaque terme de la seconde.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Tous les termes avec tous les termes » : c'est la double distributivité.</div>
+  </section>
+</article>
+
+<article class="chapter-card maths" id="m7">
+  <h3 class="chapter-title">7. Fonctions</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Une fonction, c'est une <strong>machine</strong> : tu mets un nombre dedans, elle rend un résultat. Sur le brevet, on te demande souvent l'image d'un nombre ou l'antécédent d'une valeur.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Mot</th><th>Définition</th><th>Exemple</th></tr><tr><td>Image</td><td>Résultat obtenu</td><td><code>f(3) = 7</code></td></tr><tr><td>Antécédent</td><td>Nombre qui donne la valeur cherchée</td><td>Résoudre <code>f(x)=7</code></td></tr><tr><td>Fonction affine</td><td><code>f(x)=ax+b</code></td><td>Droite</td></tr><tr><td>Coefficient directeur</td><td>La pente</td><td>Si <code>a>0</code>, la droite monte</td></tr></table>
+    <div class='formula'><strong>Forme à connaître :</strong> <code>f(x)=ax+b</code>.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox="0 0 420 260" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <line x1="40" y1="200" x2="380" y2="200" stroke="currentColor" stroke-width="2"/>
+    <line x1="210" y1="30" x2="210" y2="230" stroke="currentColor" stroke-width="2"/>
+    <path d="M70 210 C130 170, 170 140, 210 110 S290 60, 350 50" fill="none" stroke="currentColor" stroke-width="3"/>
+    <circle cx="210" cy="110" r="4" fill="currentColor"/>
+    <text x="318" y="48" fill="currentColor" font-size="16">f(x)</text>
+    <text x="220" y="224" fill="currentColor" font-size="14">x</text>
+    <text x="218" y="42" fill="currentColor" font-size="14">y</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m7">Soit f(x) = 2x + 3. Calculer f(5) puis trouver l'antécédent de 11.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m7')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m7')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m7"><strong>Correction :</strong><br>f(5)=2×5+3=10+3=<span class='highlight'>13</span><br>Pour l'antécédent : 2x+3=11 → 2x=8 → x=<span class='highlight'>4</span><br><br><strong>Cheminement :</strong> image = on remplace x ; antécédent = on résout une équation.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Image = calcule, antécédent = inverse ».</div>
+  </section>
+</article>
+
+<article class="chapter-card maths" id="m8">
+  <h3 class="chapter-title">8. Statistiques & probabilités</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Les statistiques résument une liste de nombres avec des valeurs utiles : moyenne, médiane, étendue. Les probabilités mesurent les chances qu'un événement arrive. Le plus important : ranger les données avant de chercher la médiane.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Définition</th><th>Formule</th></tr><tr><td>Moyenne</td><td>Somme / effectif</td><td><code>(x1+...+xn)/n</code></td></tr><tr><td>Médiane</td><td>Valeur du milieu</td><td>Données rangées</td></tr><tr><td>Étendue</td><td>Max - Min</td><td>Mesure de dispersion</td></tr><tr><td>Probabilité</td><td>Cas favorables / cas possibles</td><td><code>P(A)=favorable/possible</code></td></tr></table>
+    <div class='formula'><strong>Proba :</strong> <code>0 ≤ P(A) ≤ 1</code>. La somme des probabilités d'un cas complet vaut 1.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox='0 0 420 240' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <rect x='60' y='130' width='40' height='50' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='120' y='100' width='40' height='80' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='180' y='70' width='40' height='110' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='240' y='90' width='40' height='90' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='300' y='120' width='40' height='60' fill='none' stroke='currentColor' stroke-width='3'/>
+      <text x='200' y='40' text-anchor='middle' fill='currentColor' font-size='14'>diagramme en bâtons</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m8">Les notes sont 8, 11, 12, 14, 15, 16, 18. Donner la moyenne, la médiane et l'étendue.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m8')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m8')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m8"><strong>Correction :</strong><br>Moyenne : (8+11+12+14+15+16+18)/7 = 94/7 ≈ <span class='highlight'>13,4</span><br>Médiane : valeur du milieu = <span class='highlight'>14</span><br>Étendue : 18 - 8 = <span class='highlight'>10</span><br><br><strong>Cheminement :</strong> les données doivent être rangées avant la médiane.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Moyenne = somme / nombre ; Médiane = milieu ; Étendue = max - min ».</div>
+  </section>
+</article>
+
+<article class="chapter-card maths" id="m9">
+  <h3 class="chapter-title">9. Géométrie dans l'espace</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La géométrie dans l'espace travaille avec des objets en 3D : cubes, pavés, cylindres, cônes. On cherche surtout les <strong>volumes</strong> et les <strong>aires</strong>. Pense à une boîte réelle, pas à un dessin plat.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Solide</th><th>Volume</th><th>À retenir</th></tr><tr><td>Pavé droit</td><td><code>L × l × h</code></td><td>Boîte rectangulaire</td></tr><tr><td>Cube</td><td><code>a³</code></td><td>Toutes les arêtes égales</td></tr><tr><td>Cylindre</td><td><code>πr²h</code></td><td>Base circulaire</td></tr><tr><td>Cône / pyramide</td><td><code>(1/3)×base×hauteur</code></td><td>On divise par 3</td></tr></table>
+    <div class='formula'><strong>Conversion utile :</strong> 1 cm³ = 1 mL, 1 L = 1 dm³.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container maths"><svg viewBox="0 0 420 260" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <path d="M110 160 L180 120 L300 120 L230 160 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M110 160 L110 80 L180 40 L180 120" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M180 120 L180 40 L300 40 L300 120" fill="none" stroke="currentColor" stroke-width="3"/>
+    <path d="M110 80 L180 40 M110 80 L230 80 M230 160 L230 80 M300 40 L230 80 M300 120 L230 160" stroke="currentColor" stroke-width="2" opacity="0.6"/>
+    <text x="205" y="220" text-anchor="middle" fill="currentColor" font-size="14">volume / aire</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-m9">Un cylindre a un rayon de 5 cm et une hauteur de 12 cm. Calculer son volume avec π ≈ 3,14.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('m9')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-m9')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-m9"><strong>Correction :</strong><br>V = πr²h = 3,14 × 5² × 12<br>= 3,14 × 25 × 12 = <span class='highlight'>942 cm³</span><br><br><strong>Cheminement :</strong> on met le rayon au carré, puis on multiplie par π et par la hauteur.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Les solides pensent en volume » : longueur × largeur × hauteur, puis on adapte selon la forme.</div>
+  </section>
+</article>
+</section>
+
+<section class="pane" id="pane-fr">
+  <div class="pane-head">
+    <h2>Français</h2>
+    <p>4 chapitre(s)</p>
+  </div>
+  
+<article class="chapter-card francais" id="f1">
+  <h3 class="chapter-title">1. Classes grammaticales</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La classe grammaticale, c'est la <strong>famille</strong> du mot. Un nom désigne une chose ou une personne, un verbe une action ou un état, un adjectif donne une précision. Pour trouver la classe d'un mot, il faut regarder son rôle dans la phrase.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Classe</th><th>Rôle</th><th>Exemples</th></tr><tr><td>Nom</td><td>Désigne</td><td>chat, liberté, Paris</td></tr><tr><td>Verbe</td><td>Action ou état</td><td>manger, être, courir</td></tr><tr><td>Adjectif</td><td>Qualifie un nom</td><td>grand, rapide, bleu</td></tr><tr><td>Adverbe</td><td>Modifie un verbe</td><td>vite, très, aujourd'hui</td></tr><tr><td>Déterminant</td><td>Annonce le nom</td><td>le, un, ce, mon</td></tr></table>
+    <div class='formula'><strong>Test rapide :</strong> si tu peux dire <code>très + mot</code>, c'est souvent un adjectif ; si tu peux le conjuguer, c'est un verbe.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container francais"><svg viewBox="0 0 420 250" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="210" cy="45" r="25" fill="none" stroke="currentColor" stroke-width="3"/><text x="210" y="50" text-anchor="middle" fill="currentColor" font-size="14">phrase</text>
+    <line x1="210" y1="70" x2="120" y2="140" stroke="currentColor" stroke-width="3"/>
+    <line x1="210" y1="70" x2="210" y2="140" stroke="currentColor" stroke-width="3"/>
+    <line x1="210" y1="70" x2="300" y2="140" stroke="currentColor" stroke-width="3"/>
+    <rect x="70" y="140" width="100" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><text x="120" y="167" text-anchor="middle" fill="currentColor" font-size="14">sujet</text>
+    <rect x="160" y="140" width="100" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><text x="210" y="167" text-anchor="middle" fill="currentColor" font-size="14">verbe</text>
+    <rect x="250" y="140" width="100" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><text x="300" y="167" text-anchor="middle" fill="currentColor" font-size="14">CC</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-f1">Donner la classe grammaticale de « courageux » dans la phrase « Le courageux chevalier avance. »</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('f1')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-f1')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-f1">courageux = <span class='highlight'>adjectif qualificatif</span></div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Le mot, son métier » : c'est sa classe grammaticale.</div>
+  </section>
+</article>
+
+<article class="chapter-card francais" id="f2">
+  <h3 class="chapter-title">2. Fonctions grammaticales</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La fonction, c'est le <strong>travail</strong> du mot dans la phrase. Un sujet fait l'action, un COD complète le verbe, un complément circonstanciel donne une précision de temps, de lieu ou de manière.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Fonction</th><th>Question</th><th>Exemple</th></tr><tr><td>Sujet</td><td>Qui fait l'action ?</td><td>Le chat mange.</td></tr><tr><td>COD</td><td>Qui ? Quoi ?</td><td>Il mange une pomme.</td></tr><tr><td>COI</td><td>À qui ? De quoi ?</td><td>Il parle à son ami.</td></tr><tr><td>CC</td><td>Quand ? Où ? Comment ?</td><td>Hier, il est venu.</td></tr></table>
+    <div class='formula'><strong>Astuce :</strong> enlève le complément ; si la phrase garde du sens, c'est souvent un CC.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container francais"><svg viewBox="0 0 420 250" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="210" cy="45" r="25" fill="none" stroke="currentColor" stroke-width="3"/><text x="210" y="50" text-anchor="middle" fill="currentColor" font-size="14">phrase</text>
+    <line x1="210" y1="70" x2="120" y2="140" stroke="currentColor" stroke-width="3"/>
+    <line x1="210" y1="70" x2="210" y2="140" stroke="currentColor" stroke-width="3"/>
+    <line x1="210" y1="70" x2="300" y2="140" stroke="currentColor" stroke-width="3"/>
+    <rect x="70" y="140" width="100" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><text x="120" y="167" text-anchor="middle" fill="currentColor" font-size="14">sujet</text>
+    <rect x="160" y="140" width="100" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><text x="210" y="167" text-anchor="middle" fill="currentColor" font-size="14">verbe</text>
+    <rect x="250" y="140" width="100" height="44" rx="8" fill="none" stroke="currentColor" stroke-width="3"/><text x="300" y="167" text-anchor="middle" fill="currentColor" font-size="14">CC</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-f2">Dans « Le chat mange une souris dans la cuisine », donner le sujet et un complément circonstanciel.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('f2')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-f2')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-f2">Le chat = <span class='highlight'>sujet</span> ; dans la cuisine = <span class='highlight'>CC de lieu</span></div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Sujet = qui fait, COD = quoi, CC = précision ».</div>
+  </section>
+</article>
+
+<article class="chapter-card francais" id="f3">
+  <h3 class="chapter-title">3. Orthographe, homophones & accords</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Les homophones se prononcent pareil mais ne s'écrivent pas pareil : <strong>a/à</strong>, <strong>et/est</strong>, <strong>son/sont</strong>, <strong>on/ont</strong>, <strong>ces/ses/c'est/s'est</strong>. L'accord, c'est faire coller le mot à ce qu'il accompagne.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Erreur fréquente</th><th>Règle</th><th>Exemple</th></tr><tr><td>a / à</td><td><code>a</code> = avoir ; <code>à</code> = préposition</td><td>Il a faim / aller à Paris</td></tr><tr><td>et / est</td><td><code>et</code> = conjonction ; <code>est</code> = être</td><td>Il est grand et gentil</td></tr><tr><td>son / sont</td><td><code>son</code> = déterminant ; <code>sont</code> = être</td><td>Ils sont là / son livre</td></tr><tr><td>ces / ses</td><td><code>ces</code> = démonstratif ; <code>ses</code> = possessif</td><td>Ces élèves / ses cahiers</td></tr></table>
+    <div class='formula'><strong>Test express :</strong> remplace <code>a</code> par <code>avait</code> ; si ça marche, c'est le verbe avoir.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container francais"><svg viewBox='0 0 460 220' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <rect x='60' y='55' width='120' height='45' rx='10' fill='none' stroke='currentColor' stroke-width='3'/><text x='120' y='84' text-anchor='middle' fill='currentColor' font-size='14'>a = avoir</text>
+      <rect x='60' y='120' width='120' height='45' rx='10' fill='none' stroke='currentColor' stroke-width='3'/><text x='120' y='149' text-anchor='middle' fill='currentColor' font-size='14'>à = préposition</text>
+      <line x1='190' y1='78' x2='270' y2='78' stroke='currentColor' stroke-width='3'/>
+      <line x1='190' y1='143' x2='270' y2='143' stroke='currentColor' stroke-width='3'/>
+      <text x='320' y='85' fill='currentColor' font-size='14'>ne pas confondre</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-f3">Corriger : « Ils ont fini leurs devoirs et on part. »</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('f3')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-f3')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-f3">Ils <span class='highlight'>ont</span> fini leurs devoirs et <span class='highlight'>on</span> part.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Avoir / à, être / est, possessif / démonstratif ».</div>
+  </section>
+</article>
+
+<article class="chapter-card francais" id="f4">
+  <h3 class="chapter-title">4. Participe passé, figures de style & argumentation</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Le participe passé s'accorde parfois : avec <strong>être</strong>, il s'accorde avec le sujet ; avec <strong>avoir</strong>, il s'accorde avec le COD s'il est placé avant. En littérature, il faut aussi reconnaître les figures de style et construire un paragraphe argumentatif.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Point</th><th>Règle</th><th>Exemple</th></tr><tr><td>Être</td><td>Accord avec le sujet</td><td>Elle est partie</td></tr><tr><td>Avoir</td><td>Accord avec COD placé avant</td><td>Les pommes qu'il a mangées</td></tr><tr><td>Métaphore</td><td>Comparaison sans "comme"</td><td>Ses cheveux sont de l'or</td></tr><tr><td>Hyperbole</td><td>Exagération</td><td>Je meurs de soif</td></tr><tr><td>Argumentation</td><td>Thèse + arguments + exemples</td><td>Texte organisé</td></tr></table>
+    <div class='formula'><strong>Plan simple :</strong> introduction → deux arguments → exemple pour chaque argument → conclusion.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container francais"><svg viewBox="0 0 460 220" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <line x1="50" y1="110" x2="410" y2="110" stroke="currentColor" stroke-width="3"/>
+    <circle cx="90" cy="110" r="8" fill="currentColor"/>
+    <circle cx="230" cy="110" r="8" fill="currentColor"/>
+    <circle cx="350" cy="110" r="8" fill="currentColor"/>
+    <text x="90" y="82" text-anchor="middle" fill="currentColor" font-size="14">thèse</text>
+    <text x="230" y="82" text-anchor="middle" fill="currentColor" font-size="14">arguments</text>
+    <text x="350" y="82" text-anchor="middle" fill="currentColor" font-size="14">exemple</text>
+    <text x="230" y="155" text-anchor="middle" fill="currentColor" font-size="14">introduction → développement → conclusion</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-f4">Reconnaître la figure de style : « J'ai mille choses à faire. »</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('f4')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-f4')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-f4"><span class='highlight'>Hyperbole</span></div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Être = accord ; avoir = on regarde le COD ; figure = effet produit ».</div>
+  </section>
+</article>
+</section>
+
+<section class="pane" id="pane-hg">
+  <div class="pane-head">
+    <h2>Histoire-Géographie &amp; EMC</h2>
+    <p>4 chapitre(s)</p>
+  </div>
+  
+<article class="chapter-card histoire" id="h1">
+  <h3 class="chapter-title">1. Première Guerre mondiale (1914-1918)</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La Première Guerre mondiale commence en 1914 et finit en 1918. Au départ, beaucoup pensent à une guerre courte, mais elle devient une guerre longue, très violente, avec les tranchées et une mobilisation totale des sociétés.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Date</th><th>Événement</th><th>Pourquoi c&#x27;est important</th></tr><tr><td>28 juin 1914</td><td>Attentat de Sarajevo</td><td>Déclenchement de la crise</td></tr><tr><td>1914-1915</td><td>Guerre de mouvement puis de position</td><td>Les armées s'enlisent</td></tr><tr><td>1916</td><td>Verdun</td><td>Symbole de l'horreur de masse</td></tr><tr><td>11 novembre 1918</td><td>Armistice</td><td>Fin des combats</td></tr></table>
+    <div class='formula'><strong>Mots à connaître :</strong> tranchées, armistice, guerre totale, poilu, front.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container histoire"><svg viewBox="0 0 500 220" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <line x1="50" y1="110" x2="450" y2="110" stroke="currentColor" stroke-width="3"/>
+    <circle cx="90" cy="110" r="8" fill="currentColor"/><text x="90" y="85" text-anchor="middle" fill="currentColor" font-size="14">1914</text>
+    <circle cx="180" cy="110" r="8" fill="currentColor"/><text x="180" y="85" text-anchor="middle" fill="currentColor" font-size="14">1945</text>
+    <circle cx="285" cy="110" r="8" fill="currentColor"/><text x="285" y="85" text-anchor="middle" fill="currentColor" font-size="14">1961</text>
+    <circle cx="390" cy="110" r="8" fill="currentColor"/><text x="390" y="85" text-anchor="middle" fill="currentColor" font-size="14">1991</text>
+    <text x="250" y="155" text-anchor="middle" fill="currentColor" font-size="15">repères clés</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-h1">Citer deux mots-clés de la Première Guerre mondiale.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('h1')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-h1')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-h1"><span class='highlight'>tranchées</span> et <span class='highlight'>armistice</span></div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« 1914-1918 : guerre longue, tranchées, armistice ».</div>
+  </section>
+</article>
+
+<article class="chapter-card histoire" id="h2">
+  <h3 class="chapter-title">2. Seconde Guerre mondiale (1939-1945)</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La Seconde Guerre mondiale est une guerre mondiale et totale. L'Allemagne nazie d'Hitler envahit l'Europe. Le conflit prend fin en 1945 avec la victoire des Alliés, après des destructions immenses et le génocide des Juifs d'Europe.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Date</th><th>Événement</th><th>Importance</th></tr><tr><td>1er septembre 1939</td><td>Invasion de la Pologne</td><td>Début de la guerre</td></tr><tr><td>1940</td><td>Défaite française</td><td>Occupation et régime de Vichy</td></tr><tr><td>1941</td><td>Entrée en guerre des USA</td><td>Conflit mondial</td></tr><tr><td>1945</td><td>Victoire des Alliés</td><td>Fin de la guerre et découverte des camps</td></tr></table>
+    <div class='formula'><strong>Vocabulaire :</strong> nazisme, Shoah, Résistance, collaboration, génocide.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container histoire"><svg viewBox="0 0 500 220" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <line x1="50" y1="110" x2="450" y2="110" stroke="currentColor" stroke-width="3"/>
+    <circle cx="90" cy="110" r="8" fill="currentColor"/><text x="90" y="85" text-anchor="middle" fill="currentColor" font-size="14">1914</text>
+    <circle cx="180" cy="110" r="8" fill="currentColor"/><text x="180" y="85" text-anchor="middle" fill="currentColor" font-size="14">1945</text>
+    <circle cx="285" cy="110" r="8" fill="currentColor"/><text x="285" y="85" text-anchor="middle" fill="currentColor" font-size="14">1961</text>
+    <circle cx="390" cy="110" r="8" fill="currentColor"/><text x="390" y="85" text-anchor="middle" fill="currentColor" font-size="14">1991</text>
+    <text x="250" y="155" text-anchor="middle" fill="currentColor" font-size="15">repères clés</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-h2">Donner la date du début de la Seconde Guerre mondiale.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('h2')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-h2')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-h2"><span class='highlight'>1er septembre 1939</span></div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Mondiale + totale + génocide ».</div>
+  </section>
+</article>
+
+<article class="chapter-card histoire" id="h3">
+  <h3 class="chapter-title">3. Guerre froide</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La Guerre froide est une période de tension entre deux blocs : les États-Unis et leurs alliés d'un côté, l'URSS et ses alliés de l'autre. Il n'y a pas de combat direct entre les deux superpuissances, mais beaucoup de crises et de rivalités.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Repère</th><th>Sens</th><th>À retenir</th></tr><tr><td>1947</td><td>Début de la Guerre froide</td><td>Doctrine Truman, plan Marshall</td></tr><tr><td>1961</td><td>Mur de Berlin</td><td>Symbole de la séparation des blocs</td></tr><tr><td>1962</td><td>Crise de Cuba</td><td>Risque de guerre nucléaire</td></tr><tr><td>1991</td><td>Fin de l'URSS</td><td>Fin de la Guerre froide</td></tr></table>
+    <div class='formula'><strong>Deux blocs :</strong> Ouest = capitalisme / Est = communisme.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container histoire"><svg viewBox='0 0 460 220' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <rect x='55' y='55' width='130' height='110' rx='10' fill='none' stroke='currentColor' stroke-width='3'/>
+      <rect x='275' y='55' width='130' height='110' rx='10' fill='none' stroke='currentColor' stroke-width='3'/>
+      <line x1='195' y1='110' x2='275' y2='110' stroke='currentColor' stroke-width='4'/>
+      <text x='120' y='100' text-anchor='middle' fill='currentColor' font-size='14'>Ouest</text>
+      <text x='340' y='100' text-anchor='middle' fill='currentColor' font-size='14'>Est</text>
+      <text x='230' y='160' text-anchor='middle' fill='currentColor' font-size='14'>mur / rideau de fer</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-h3">Quelle date marque le début de la Guerre froide ?</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('h3')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-h3')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-h3"><span class='highlight'>1947</span></div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« 1947-1991 » pour la période, « 1961 » pour le mur, « 1991 » pour la fin.</div>
+  </section>
+</article>
+
+<article class="chapter-card histoire" id="h4">
+  <h3 class="chapter-title">4. France depuis 1944, Europe & EMC</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Depuis 1944, la France reconstruit sa démocratie, change de régime politique et s'insère dans l'Europe. Il faut aussi connaître les grandes valeurs de la République : liberté, égalité, fraternité, laïcité, citoyenneté.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Repère</th><th>Idée</th><th>À savoir</th></tr><tr><td>1944-1946</td><td>Libération et refondation</td><td>Droit de vote des femmes</td></tr><tr><td>1958</td><td>Naissance de la Ve République</td><td>Pouvoir exécutif renforcé</td></tr><tr><td>1957</td><td>Traité de Rome</td><td>Début de la construction européenne</td></tr><tr><td>1992</td><td>Traité de Maastricht</td><td>Naissance de l'UE</td></tr></table>
+    <div class='formula'><strong>EMC :</strong> citoyen = personne qui a des droits et des devoirs.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container histoire"><svg viewBox='0 0 460 220' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='230' cy='110' r='55' fill='none' stroke='currentColor' stroke-width='3'/>
+      <text x='230' y='104' text-anchor='middle' fill='currentColor' font-size='14'>République</text>
+      <text x='230' y='126' text-anchor='middle' fill='currentColor' font-size='14'>liberté</text>
+      <path d='M120 70 L170 110 L120 150' fill='none' stroke='currentColor' stroke-width='3'/>
+      <path d='M340 70 L290 110 L340 150' fill='none' stroke='currentColor' stroke-width='3'/>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-h4">Citer une valeur de la République et un exemple concret.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('h4')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-h4')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-h4"><span class='highlight'>Liberté</span> ; à l'école publique, la neutralité religieuse est garantie par la laïcité.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Liberté, Égalité, Fraternité » + « laïcité = neutralité de l'État ».</div>
+  </section>
+</article>
+</section>
+
+<section class="pane" id="pane-sci">
+  <div class="pane-head">
+    <h2>Sciences</h2>
+    <p>5 chapitre(s)</p>
+  </div>
+  
+<article class="chapter-card science" id="s1">
+  <h3 class="chapter-title">1. Génétique & hérédité</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">L'ADN est comme le <strong>livre de cuisine</strong> de ton corps : il contient les instructions pour fabriquer et faire fonctionner l'organisme. Les gènes sont des morceaux de ce livre ; ils participent à la transmission des caractères des parents aux enfants.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Définition</th><th>Exemple</th></tr><tr><td>ADN</td><td>Molécule de l'information génétique</td><td>Double hélice</td></tr><tr><td>Gène</td><td>Portion d'ADN</td><td>Couleur des yeux</td></tr><tr><td>Allèle</td><td>Version d'un gène</td><td>Yeux bleus / marron</td></tr><tr><td>Chromosome</td><td>ADN compacté</td><td>23 paires chez l'humain</td></tr></table>
+    <div class='formula'><strong>Chaîne logique :</strong> cellule → noyau → chromosomes → ADN → gènes.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container science"><svg viewBox="0 0 420 260" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <path d="M130 40 Q230 80 130 120 T130 200" fill="none" stroke="currentColor" stroke-width="4"/>
+    <path d="M250 40 Q150 80 250 120 T250 200" fill="none" stroke="currentColor" stroke-width="4"/>
+    <line x1="145" y1="55" x2="235" y2="55" stroke="currentColor" stroke-width="2"/>
+    <line x1="145" y1="95" x2="235" y2="95" stroke="currentColor" stroke-width="2"/>
+    <line x1="145" y1="135" x2="235" y2="135" stroke="currentColor" stroke-width="2"/>
+    <line x1="145" y1="175" x2="235" y2="175" stroke="currentColor" stroke-width="2"/>
+    <text x="205" y="236" text-anchor="middle" fill="currentColor" font-size="14">ADN = double hélice</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-s1">Définir l'ADN en une phrase simple.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('s1')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-s1')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-s1">L'ADN est la <span class='highlight'>molécule de l'information génétique</span>.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« ADN = instructions ; gène = chapitre de l'instruction ».</div>
+  </section>
+</article>
+
+<article class="chapter-card science" id="s2">
+  <h3 class="chapter-title">2. Reproduction, puberté & contraception</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">La puberté transforme le corps et rend possible la reproduction. Chez l'humain, la reproduction est sexuée : il faut un spermatozoïde et un ovule. Les méthodes de contraception servent à éviter une grossesse, et les préservatifs protègent aussi des IST.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Rôle</th><th>À retenir</th></tr><tr><td>Gamètes</td><td>Cellules reproductrices</td><td>Spermatozoïde et ovule</td></tr><tr><td>Fécondation</td><td>Rencontre des gamètes</td><td>Début d'un nouvel être</td></tr><tr><td>Contraception</td><td>Évite une grossesse</td><td>Préservatif, pilule...</td></tr><tr><td>IST</td><td>Infections sexuellement transmissibles</td><td>Le préservatif protège</td></tr></table>
+    <div class='formula'><strong>Brevet :</strong> savoir citer une méthode de contraception et expliquer sa fonction.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container science"><svg viewBox='0 0 460 220' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='140' cy='110' r='28' fill='none' stroke='currentColor' stroke-width='3'/>
+      <circle cx='320' cy='110' r='22' fill='none' stroke='currentColor' stroke-width='3'/>
+      <line x1='168' y1='110' x2='295' y2='110' stroke='currentColor' stroke-width='3'/>
+      <text x='140' y='154' text-anchor='middle' fill='currentColor' font-size='14'>spermatozoïde</text>
+      <text x='320' y='154' text-anchor='middle' fill='currentColor' font-size='14'>ovule</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-s2">Qu'est-ce que la contraception ?</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('s2')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-s2')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-s2">Ensemble des méthodes qui <span class='highlight'>évite une grossesse</span>.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Contraception = éviter grossesse ; préservatif = grossesse + IST ».</div>
+  </section>
+</article>
+
+<article class="chapter-card science" id="s3">
+  <h3 class="chapter-title">3. Immunité, microbes & vaccination</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Le corps se défend contre les microbes grâce à des barrières comme la peau, puis à des cellules immunitaires. La vaccination prépare le système immunitaire à reconnaître un microbe sans tomber malade.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Définition</th><th>Exemple</th></tr><tr><td>Microbe</td><td>Être microscopique</td><td>Bactérie, virus</td></tr><tr><td>Immunité</td><td>Défenses du corps</td><td>Globules blancs</td></tr><tr><td>Vaccin</td><td>Prépare les défenses</td><td>Mémoire immunitaire</td></tr><tr><td>Antibiotique</td><td>Agit contre les bactéries</td><td>Pas contre les virus</td></tr></table>
+    <div class='formula'><strong>Idée importante :</strong> un vaccin entraîne une réponse plus rapide en cas de contact réel avec le microbe.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container science"><svg viewBox='0 0 460 220' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='160' cy='110' r='55' fill='none' stroke='currentColor' stroke-width='3'/>
+      <path d='M280 70 L350 110 L280 150' fill='none' stroke='currentColor' stroke-width='3'/>
+      <line x1='215' y1='110' x2='280' y2='110' stroke='currentColor' stroke-width='3'/>
+      <text x='160' y='116' text-anchor='middle' fill='currentColor' font-size='14'>corps</text>
+      <text x='315' y='112' text-anchor='middle' fill='currentColor' font-size='14'>microbe</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-s3">Différencier virus et bactérie.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('s3')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-s3')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-s3">Un antibiotique agit sur une <span class='highlight'>bactérie</span>, pas sur un virus.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Antibiotique = anti-bactérien, pas anti-virus ».</div>
+  </section>
+</article>
+
+<article class="chapter-card science" id="s4">
+  <h3 class="chapter-title">4. Énergie, rendement & conversions</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">L'énergie permet de faire bouger, chauffer, éclairer. Elle ne disparaît pas : elle se transforme. Le rendement dit si un système est efficace ou s'il perd beaucoup d'énergie sous forme de chaleur.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Formule</th><th>Exemple</th></tr><tr><td>Conservation</td><td>L'énergie se transforme</td><td>Jamais créée ni détruite</td></tr><tr><td>Rendement</td><td><code>utile / consommée × 100</code></td><td>Ampoule, moteur</td></tr><tr><td>Énergie utile</td><td>Ce qu'on veut obtenir</td><td>Lumière, mouvement</td></tr><tr><td>Pertes</td><td>Énergie non utile</td><td>Chaleur</td></tr></table>
+    <div class='formula'><strong>Formule :</strong> <code>η = (Énergie utile / Énergie consommée) × 100</code>.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container science"><svg viewBox="0 0 420 240" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <rect x="55" y="70" width="90" height="70" rx="12" fill="none" stroke="currentColor" stroke-width="3"/>
+    <text x="100" y="110" text-anchor="middle" fill="currentColor" font-size="14">entrée</text>
+    <line x1="145" y1="105" x2="250" y2="105" stroke="currentColor" stroke-width="3"/>
+    <rect x="250" y="50" width="120" height="110" rx="14" fill="none" stroke="currentColor" stroke-width="3"/>
+    <text x="310" y="100" text-anchor="middle" fill="currentColor" font-size="14">système</text>
+    <text x="310" y="122" text-anchor="middle" fill="currentColor" font-size="14">utile + pertes</text>
+    <text x="210" y="40" text-anchor="middle" fill="currentColor" font-size="14">conversion d'énergie</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-s4">Une ampoule consomme 100 J et produit 20 J de lumière. Calculer son rendement.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('s4')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-s4')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-s4"><strong>Correction :</strong><br>η = (20 / 100) × 100 = 0,2 × 100 = <span class='highlight'>20%</span><br><br><strong>Cheminement :</strong> on divise l'énergie utile par l'énergie consommée, puis on multiplie par 100.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« utile / consommée × 100 ».</div>
+  </section>
+</article>
+
+<article class="chapter-card science" id="s5">
+  <h3 class="chapter-title">5. Électricité & circuits</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Un circuit électrique est un chemin fermé qui permet au courant de circuler. On parle de série et de dérivation, de tension, d'intensité et de sécurité. Le brevet aime les schémas simples et les lois de base.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Définition</th><th>À retenir</th></tr><tr><td>Circuit fermé</td><td>Le courant circule</td><td>Sinon, rien ne marche</td></tr><tr><td>Série</td><td>Un seul chemin</td><td>Si un élément casse, tout s'arrête</td></tr><tr><td>Dérivation</td><td>Plusieurs chemins</td><td>Les lampes fonctionnent indépendamment</td></tr><tr><td>Sécurité</td><td>Respecter les tensions</td><td>Éviter les courts-circuits</td></tr></table>
+    <div class='formula'><strong>Repère :</strong> schéma normalisé = pile, lampe, interrupteur, fil.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container science"><svg viewBox="0 0 420 240" class="svg" xmlns="http://www.w3.org/2000/svg">
+    <rect x="120" y="80" width="70" height="45" rx="8" fill="none" stroke="currentColor" stroke-width="3"/>
+    <text x="155" y="108" text-anchor="middle" fill="currentColor" font-size="14">pile</text>
+    <circle cx="305" cy="102" r="18" fill="none" stroke="currentColor" stroke-width="3"/>
+    <text x="305" y="107" text-anchor="middle" fill="currentColor" font-size="14">L</text>
+    <line x1="190" y1="102" x2="287" y2="102" stroke="currentColor" stroke-width="3"/>
+    <line x1="90" y1="102" x2="120" y2="102" stroke="currentColor" stroke-width="3"/>
+    <line x1="190" y1="102" x2="190" y2="40" stroke="currentColor" stroke-width="3"/>
+    <line x1="190" y1="40" x2="305" y2="40" stroke="currentColor" stroke-width="3"/>
+    <line x1="305" y1="40" x2="305" y2="84" stroke="currentColor" stroke-width="3"/>
+    <line x1="305" y1="120" x2="305" y2="200" stroke="currentColor" stroke-width="3"/>
+    <line x1="305" y1="200" x2="90" y2="200" stroke="currentColor" stroke-width="3"/>
+    <line x1="90" y1="200" x2="90" y2="102" stroke="currentColor" stroke-width="3"/>
+    <text x="250" y="210" text-anchor="middle" fill="currentColor" font-size="14">circuit fermé</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-s5">Dans un circuit en série, que se passe-t-il si une lampe grille ?</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('s5')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-s5')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-s5">Le circuit s'ouvre et toutes les lampes s'éteignent.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Série = une seule route » ; « dérivation = plusieurs routes ».</div>
+  </section>
+</article>
+</section>
+
+<section class="pane" id="pane-tech">
+  <div class="pane-head">
+    <h2>Technologie</h2>
+    <p>3 chapitre(s)</p>
+  </div>
+  
+<article class="chapter-card techno" id="t1">
+  <h3 class="chapter-title">1. Algorithmique & programmation</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Un algorithme, c'est une recette précise pour résoudre un problème. La programmation consiste à traduire cette recette en instructions que l'ordinateur peut exécuter.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Rôle</th><th>Exemple</th></tr><tr><td>Variable</td><td>Stocker une valeur</td><td><code>age = 15</code></td></tr><tr><td>Condition</td><td>Choisir selon un test</td><td><code>if age >= 18</code></td></tr><tr><td>Boucle</td><td>Répéter des actions</td><td><code>for i in range(5)</code></td></tr><tr><td>Fonction</td><td>Réutiliser un bloc</td><td><code>def double(x)</code></td></tr></table>
+    <div class='formula'><strong>Idée :</strong> un bon algorithme est clair, fini et vérifiable.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container techno"><svg viewBox='0 0 460 220' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <rect x='55' y='70' width='90' height='50' rx='10' fill='none' stroke='currentColor' stroke-width='3'/><text x='100' y='101' text-anchor='middle' fill='currentColor' font-size='14'>début</text>
+      <rect x='180' y='70' width='100' height='50' rx='10' fill='none' stroke='currentColor' stroke-width='3'/><text x='230' y='101' text-anchor='middle' fill='currentColor' font-size='14'>test</text>
+      <rect x='320' y='70' width='90' height='50' rx='10' fill='none' stroke='currentColor' stroke-width='3'/><text x='365' y='101' text-anchor='middle' fill='currentColor' font-size='14'>fin</text>
+      <line x1='145' y1='95' x2='180' y2='95' stroke='currentColor' stroke-width='3'/>
+      <line x1='280' y1='95' x2='320' y2='95' stroke='currentColor' stroke-width='3'/>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-t1">Écrire l'idée d'un algorithme qui teste si une note est supérieure ou égale à 10.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('t1')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-t1')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-t1">Si la note ≥ 10, on affiche « admis », sinon « non admis ».</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« Entrée → test → sortie ».</div>
+  </section>
+</article>
+
+<article class="chapter-card techno" id="t2">
+  <h3 class="chapter-title">2. Réseaux, internet & données</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Internet fonctionne grâce à des réseaux d'ordinateurs reliés entre eux. Une donnée peut être envoyée, découpée en paquets, puis reconstruite à l'arrivée. Il faut aussi penser à la sécurité et à l'identité numérique.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Définition</th><th>Exemple</th></tr><tr><td>Réseau</td><td>Appareils connectés</td><td>Maison, collège, internet</td></tr><tr><td>Paquet</td><td>Petit morceau de donnée</td><td>Transmission plus efficace</td></tr><tr><td>Adresse IP</td><td>Identifiant réseau</td><td>Permet de localiser un appareil</td></tr><tr><td>Mot de passe</td><td>Protection d'accès</td><td>Sécurise un compte</td></tr></table>
+    <div class='formula'><strong>Sécurité :</strong> ne pas partager ses mots de passe et vérifier les liens suspects.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container techno"><svg viewBox='0 0 460 220' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <circle cx='90' cy='110' r='20' fill='none' stroke='currentColor' stroke-width='3'/>
+      <circle cx='210' cy='70' r='20' fill='none' stroke='currentColor' stroke-width='3'/>
+      <circle cx='210' cy='150' r='20' fill='none' stroke='currentColor' stroke-width='3'/>
+      <circle cx='340' cy='110' r='20' fill='none' stroke='currentColor' stroke-width='3'/>
+      <line x1='110' y1='110' x2='190' y2='78' stroke='currentColor' stroke-width='3'/>
+      <line x1='110' y1='110' x2='190' y2='142' stroke='currentColor' stroke-width='3'/>
+      <line x1='230' y1='70' x2='320' y2='110' stroke='currentColor' stroke-width='3'/>
+      <line x1='230' y1='150' x2='320' y2='110' stroke='currentColor' stroke-width='3'/>
+      <text x='230' y='200' text-anchor='middle' fill='currentColor' font-size='14'>paquets de données</text>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-t2">Pourquoi sécuriser un mot de passe ?</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('t2')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-t2')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-t2">Pour protéger l'<span class='highlight'>identité numérique</span>.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« paquets = envoi plus souple ».</div>
+  </section>
+</article>
+
+<article class="chapter-card techno" id="t3">
+  <h3 class="chapter-title">3. Objets techniques & démarche de projet</h3>
+
+  <section class="block debutant">
+    <div class="section-label">Niveau débutant</div>
+    <div class="debutant-text">Un objet technique est fabriqué par l'humain pour répondre à un besoin. On le décrit par sa fonction d'usage, sa fonction d'estime et ses composants. La démarche de projet aide à imaginer, tester puis améliorer un objet.</div>
+  </section>
+
+  <section class="block essentiel">
+    <div class="section-label">L'essentiel brevet</div>
+    <table class="table-essentiel"><tr><th>Notion</th><th>Sens</th><th>Exemple</th></tr><tr><td>Fonction d'usage</td><td>À quoi il sert</td><td>Éclairer, transporter, mesurer</td></tr><tr><td>Fonction d'estime</td><td>Ce qui plaît</td><td>Design, couleur, forme</td></tr><tr><td>Chaîne d'énergie</td><td>Alimenter, distribuer, convertir</td><td>Pile → moteur</td></tr><tr><td>Cycle de vie</td><td>Fabrication à recyclage</td><td>Éco-conception</td></tr></table>
+    <div class='formula'><strong>Projet :</strong> besoin → cahier des charges → prototype → test → amélioration.</div>
+  </section>
+
+  <section class="block graphique">
+    <div class="section-label">Méthode graphique</div>
+    <div class="svg-container techno"><svg viewBox='0 0 460 220' class='svg' xmlns='http://www.w3.org/2000/svg'>
+      <rect x='60' y='70' width='90' height='50' rx='12' fill='none' stroke='currentColor' stroke-width='3'/><text x='105' y='101' text-anchor='middle' fill='currentColor' font-size='14'>besoin</text>
+      <rect x='180' y='70' width='100' height='50' rx='12' fill='none' stroke='currentColor' stroke-width='3'/><text x='230' y='101' text-anchor='middle' fill='currentColor' font-size='14'>prototype</text>
+      <rect x='315' y='70' width='90' height='50' rx='12' fill='none' stroke='currentColor' stroke-width='3'/><text x='360' y='101' text-anchor='middle' fill='currentColor' font-size='14'>test</text>
+      <line x1='150' y1='95' x2='180' y2='95' stroke='currentColor' stroke-width='3'/>
+      <line x1='280' y1='95' x2='315' y2='95' stroke='currentColor' stroke-width='3'/>
+    </svg></div>
+  </section>
+
+  <section class="block generateur">
+    <div class="section-label">Générateur d'annales</div>
+    <div class="question-box">
+      <div class="question-text" id="q-t3">Expliquer la différence entre fonction d'usage et fonction d'estime.</div>
+      <div class="btn-group">
+        <button class="btn" onclick="regen('t3')">Nouvelles données</button>
+        <button class="btn" onclick="toggleAnswer('a-t3')">Voir la correction</button>
+      </div>
+      <div class="answer-box" id="a-t3">Usage = <span class='highlight'>à quoi l'objet sert</span> ; estime = <span class='highlight'>ce qui plaît</span>.</div>
+    </div>
+  </section>
+
+  <section class="block astuce">
+    <div class="section-label">Astuce mémoire</div>
+    <div class="astuce-box">« usage = utile ; estime = joli ; projet = tester et améliorer ».</div>
+  </section>
+</article>
+</section>
+</main>
+
+<script>
+
+const CHAPTERS = {"m1": {"kind": "arith"}, "m2": {"kind": "prop"}, "m3": {"kind": "pythagore"}, "m4": {"kind": "thales"}, "m5": {"kind": "trigo"}, "m6": {"kind": "litteral"}, "m7": {"kind": "fonction"}, "m8": {"kind": "stats"}, "m9": {"kind": "space"}, "f1": {"kind": "text", "variants": [{"q": "Donner la classe grammaticale de « courageux » dans la phrase « Le courageux chevalier avance. »", "a": "courageux = <span class='highlight'>adjectif qualificatif</span>"}, {"q": "Trouver la classe grammaticale de « rapidement ».", "a": "rapidement = <span class='highlight'>adverbe</span>"}, {"q": "Dire si « chat » est un nom commun ou un verbe.", "a": "chat = <span class='highlight'>nom commun</span>"}]}, "f2": {"kind": "text", "variants": [{"q": "Dans « Le chat mange une souris dans la cuisine », donner le sujet et un complément circonstanciel.", "a": "Le chat = <span class='highlight'>sujet</span> ; dans la cuisine = <span class='highlight'>CC de lieu</span>"}, {"q": "Dans « Paul donne un livre à sa sœur », trouver le COD.", "a": "un livre = <span class='highlight'>COD</span>"}, {"q": "Dans « Hier, les élèves travaillent sérieusement », trouver le CC de temps.", "a": "Hier = <span class='highlight'>CC de temps</span>"}]}, "f3": {"kind": "text", "variants": [{"q": "Corriger : « Ils ont fini leurs devoirs et on part. »", "a": "Ils <span class='highlight'>ont</span> fini leurs devoirs et <span class='highlight'>on</span> part."}, {"q": "Compléter : « Il ___ (a / à) peur de ___ (son / sont) chien. »", "a": "Il <span class='highlight'>a</span> peur de <span class='highlight'>son</span> chien."}, {"q": "Choisir entre « et / est » : « La porte ___ ouverte. »", "a": "La porte <span class='highlight'>est</span> ouverte."}]}, "f4": {"kind": "text", "variants": [{"q": "Reconnaître la figure de style : « J'ai mille choses à faire. »", "a": "<span class='highlight'>Hyperbole</span>"}, {"q": "Conjuguer mentalement : « Les fleurs qu'il a cueillies ». Pourquoi cueillies prend un -es ?", "a": "Parce que le COD <span class='highlight'>les fleurs</span> est placé avant le verbe."}, {"q": "Donner un plan d'argumentation en 3 étapes.", "a": "Introduction → arguments avec exemples → conclusion"}]}, "h1": {"kind": "text", "variants": [{"q": "Citer deux mots-clés de la Première Guerre mondiale.", "a": "<span class='highlight'>tranchées</span> et <span class='highlight'>armistice</span>"}, {"q": "Pourquoi parle-t-on de guerre totale ?", "a": "Parce qu'elle mobilise <span class='highlight'>soldats, civils et économie</span>."}, {"q": "Dire ce qu'est Verdun dans le conflit.", "a": "Verdun est une <span class='highlight'>bataille symbole de l'usure</span>."}]}, "h2": {"kind": "text", "variants": [{"q": "Donner la date du début de la Seconde Guerre mondiale.", "a": "<span class='highlight'>1er septembre 1939</span>"}, {"q": "Nommer une conséquence de la guerre pour les civils.", "a": "Destruction massive et <span class='highlight'>violences de masse</span>."}, {"q": "Citer un élément du génocide des Juifs d'Europe.", "a": "La <span class='highlight'>Shoah</span>."}]}, "h3": {"kind": "text", "variants": [{"q": "Quelle date marque le début de la Guerre froide ?", "a": "<span class='highlight'>1947</span>"}, {"q": "Quel mur symbolise la division du monde ?", "a": "Le <span class='highlight'>mur de Berlin</span>."}, {"q": "Que représentent les deux blocs ?", "a": "Le bloc ouest = <span class='highlight'>capitalisme</span>, le bloc est = <span class='highlight'>communisme</span>."}]}, "h4": {"kind": "text", "variants": [{"q": "Citer une valeur de la République et un exemple concret.", "a": "<span class='highlight'>Liberté</span> ; à l'école publique, la neutralité religieuse est garantie par la laïcité."}, {"q": "Quelle date marque la naissance de la Ve République ?", "a": "<span class='highlight'>1958</span>"}, {"q": "À quoi sert l'Union européenne ?", "a": "À <span class='highlight'>coopérer</span> entre États européens."}]}, "s1": {"kind": "text", "variants": [{"q": "Définir l'ADN en une phrase simple.", "a": "L'ADN est la <span class='highlight'>molécule de l'information génétique</span>."}, {"q": "Citer l'ordre du plus petit au plus grand : gène, chromosome, ADN.", "a": "<span class='highlight'>gène → ADN → chromosome</span>"}, {"q": "Dire à quoi sert un allèle.", "a": "Un allèle est une <span class='highlight'>version d'un gène</span>."}]}, "s2": {"kind": "text", "variants": [{"q": "Qu'est-ce que la contraception ?", "a": "Ensemble des méthodes qui <span class='highlight'>évite une grossesse</span>."}, {"q": "À quoi sert le préservatif ?", "a": "Il protège contre les <span class='highlight'>IST</span> et évite une grossesse."}, {"q": "Citer les deux gamètes humains.", "a": "<span class='highlight'>spermatozoïde</span> et <span class='highlight'>ovule</span>."}]}, "s3": {"kind": "text", "variants": [{"q": "Différencier virus et bactérie.", "a": "Un antibiotique agit sur une <span class='highlight'>bactérie</span>, pas sur un virus."}, {"q": "Pourquoi se faire vacciner ?", "a": "Pour préparer le corps à reconnaître le microbe grâce à la <span class='highlight'>mémoire immunitaire</span>."}, {"q": "Nommer une barrière naturelle du corps.", "a": "La <span class='highlight'>peau</span>."}]}, "s4": {"kind": "energie"}, "s5": {"kind": "text", "variants": [{"q": "Dans un circuit en série, que se passe-t-il si une lampe grille ?", "a": "Le circuit s'ouvre et toutes les lampes s'éteignent."}, {"q": "Dans un circuit en dérivation, les lampes dépendent-elles les unes des autres ?", "a": "Non, elles fonctionnent sur des branches différentes."}, {"q": "Nommer une précaution de sécurité électrique.", "a": "Ne jamais manipuler un appareil avec les mains mouillées."}]}, "t1": {"kind": "text", "variants": [{"q": "Écrire l'idée d'un algorithme qui teste si une note est supérieure ou égale à 10.", "a": "Si la note ≥ 10, on affiche « admis », sinon « non admis »."}, {"q": "Que représente une variable en programmation ?", "a": "Une variable est une <span class='highlight'>boîte qui stocke une valeur</span>."}, {"q": "À quoi sert une boucle ?", "a": "À <span class='highlight'>répéter</span> des instructions."}]}, "t2": {"kind": "text", "variants": [{"q": "Pourquoi sécuriser un mot de passe ?", "a": "Pour protéger l'<span class='highlight'>identité numérique</span>."}, {"q": "Qu'est-ce qu'un paquet de données ?", "a": "Un <span class='highlight'>morceau d'information</span> envoyé sur le réseau."}, {"q": "Nommer un identifiant réseau.", "a": "L'<span class='highlight'>adresse IP</span>."}]}, "t3": {"kind": "text", "variants": [{"q": "Expliquer la différence entre fonction d'usage et fonction d'estime.", "a": "Usage = <span class='highlight'>à quoi l'objet sert</span> ; estime = <span class='highlight'>ce qui plaît</span>."}, {"q": "Citer deux étapes d'une démarche de projet.", "a": "<span class='highlight'>prototype</span> puis <span class='highlight'>test</span>."}, {"q": "Qu'est-ce que l'éco-conception ?", "a": "Concevoir un objet en limitant son <span class='highlight'>impact environnemental</span>."}]}};
+
+function toggleAnswer(id) {
+  const el = document.getElementById(id);
+  if (el) el.classList.toggle('show');
+}
+
+function randInt(min, max) {
+  return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function pick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function regen(id) {
+  const meta = CHAPTERS[id];
+  const q = document.getElementById('q-' + id);
+  const a = document.getElementById('a-' + id);
+  if (!meta || !q || !a) return;
+
+  if (meta.kind === 'text') {
+    const v = pick(meta.variants);
+    q.innerHTML = v.q;
+    a.innerHTML = v.a;
+    a.classList.remove('show');
+    return;
+  }
+
+  if (meta.kind === 'arith') {
+    const x = randInt(-8, 8) || 4;
+    const y = randInt(2, 7);
+    const z = randInt(2, 6);
+    const w = randInt(1, 5);
+    const result = x + y * (z - w);
+    q.innerHTML = `Calculer : ${x} + ${y} × (${z} - ${w})`;
+    a.innerHTML = `<strong>Correction :</strong><br>1) Parenthèses : (${z} - ${w}) = ${z-w}<br>2) Multiplication : ${y} × ${z-w} = ${y*(z-w)}<br>3) Puis addition : ${x} + ${y*(z-w)} = <span class="highlight">${result}</span><br><br><strong>Cheminement :</strong> on fait d'abord la parenthèse, puis le produit, puis l'addition.`;
+  } else if (meta.kind === 'prop') {
+    const qty1 = randInt(2, 5);
+    const qty2 = randInt(6, 12);
+    const unit = randInt(20, 80);
+    const perPerson = unit / qty1;
+    const total = perPerson * qty2;
+    q.innerHTML = `Une recette pour ${qty1} personnes utilise ${unit} g de farine. Combien faut-il pour ${qty2} personnes ?`;
+    a.innerHTML = `<strong>Correction :</strong><br>1) Quantité pour 1 personne : ${unit} / ${qty1} = ${perPerson} g<br>2) Pour ${qty2} personnes : ${perPerson} × ${qty2} = <span class="highlight">${total} g</span><br><br><strong>Cheminement :</strong> on garde le même rythme, donc c'est proportionnel.`;
+  } else if (meta.kind === 'pythagore') {
+    const a1 = randInt(3, 9);
+    const b1 = randInt(4, 12);
+    const c2 = a1*a1 + b1*b1;
+    const c = Math.sqrt(c2);
+    q.innerHTML = `Dans un triangle rectangle, les deux côtés de l'angle droit mesurent ${a1} cm et ${b1} cm. Calculer l'hypoténuse.`;
+    a.innerHTML = `<strong>Correction :</strong><br>1) Pythagore : c² = ${a1}² + ${b1}²<br>2) c² = ${a1*a1} + ${b1*b1} = ${c2}<br>3) c = √${c2} = <span class="highlight">${c.toFixed(2)} cm</span><br><br><strong>Cheminement :</strong> on additionne les carrés puis on prend la racine.`;
+  } else if (meta.kind === 'thales') {
+    const cases = [
+      {am:4, ab:10, an:6, ac:15},
+      {am:3, ab:12, an:5, ac:20},
+      {am:2, ab:8, an:3, ac:12},
+    ];
+    const c = pick(cases);
+    q.innerHTML = `Dans un triangle ABC, M est sur [AB], N sur [AC] et (MN)//(BC). On sait AM = ${c.am}, AB = ${c.ab}, AN = ${c.an}. Calculer AC.`;
+    a.innerHTML = `<strong>Correction :</strong><br>Thalès : AM/AB = AN/AC<br>${c.am}/${c.ab} = ${c.an}/AC<br>Produit en croix : ${c.am} × AC = ${c.an * c.ab}<br>AC = ${c.an * c.ab} / ${c.am} = <span class="highlight">${c.ac}</span><br><br><strong>Cheminement :</strong> les rapports sont égaux dans les deux triangles.`;
+  } else if (meta.kind === 'trigo') {
+    const angles = [30, 35, 45, 60];
+    const angle = pick(angles);
+    const hyp = randInt(10, 20);
+    const opp = hyp * Math.sin(angle * Math.PI / 180);
+    q.innerHTML = `Dans un triangle rectangle, l'angle vaut ${angle}° et l'hypoténuse vaut ${hyp} cm. Calculer le côté opposé.`;
+    a.innerHTML = `<strong>Correction :</strong><br>1) sin(${angle}°) = opposé / ${hyp}<br>2) opposé = ${hyp} × sin(${angle}°)<br>3) opposé ≈ ${hyp} × ${Math.sin(angle * Math.PI / 180).toFixed(3)} = <span class="highlight">${opp.toFixed(2)} cm</span><br><br><strong>Cheminement :</strong> on choisit sinus car on connaît l'hypoténuse et le côté opposé.`;
+  } else if (meta.kind === 'litteral') {
+    const a1 = randInt(1, 4);
+    const b1 = randInt(1, 6);
+    const a2 = randInt(1, 4);
+    const b2 = Math.random() > 0.5 ? randInt(1, 6) : -randInt(1, 6);
+    const x2 = a1 * a2;
+    const x = a1 * b2 + b1 * a2;
+    const cst = b1 * b2;
+    q.innerHTML = `Développer et réduire : (${a1}x + ${b1})(${a2}x ${b2 >= 0 ? '+' : '-'} ${Math.abs(b2)})`;
+    a.innerHTML = `<strong>Correction :</strong><br>(${a1}x + ${b1})(${a2}x ${b2 >= 0 ? '+' : '-'} ${Math.abs(b2)}) = ${x2}x² ${x >= 0 ? '+' : '-'} ${Math.abs(x)}x ${cst >= 0 ? '+' : '-'} ${Math.abs(cst)}<br><br><strong>Cheminement :</strong> on multiplie chaque terme par chaque terme, puis on regroupe.`;
+  } else if (meta.kind === 'fonction') {
+    const a1 = randInt(1, 5);
+    const b1 = randInt(-4, 6);
+    const x1 = randInt(2, 6);
+    const y1 = a1 * x1 + b1;
+    q.innerHTML = `Soit f(x) = ${a1}x ${b1 >= 0 ? '+' : '-'} ${Math.abs(b1)}. Calculer f(${x1}) puis trouver l'antécédent de ${y1}.`;
+    a.innerHTML = `<strong>Correction :</strong><br>f(${x1}) = ${a1}×${x1} ${b1 >= 0 ? '+' : '-'} ${Math.abs(b1)} = ${y1}<br>Pour l'antécédent : ${a1}x ${b1 >= 0 ? '+' : '-'} ${Math.abs(b1)} = ${y1}<br>⇒ x = <span class="highlight">${x1}</span><br><br><strong>Cheminement :</strong> image = on remplace x ; antécédent = on résout l'équation.`;
+  } else if (meta.kind === 'stats') {
+    let notes = Array.from({length: 7}, () => randInt(5, 19)).sort((a,b)=>a-b);
+    const sum = notes.reduce((s,n)=>s+n,0);
+    const mean = (sum / notes.length).toFixed(1);
+    const med = notes[Math.floor(notes.length/2)];
+    const range = notes[notes.length-1] - notes[0];
+    q.innerHTML = `Voici les notes : ${notes.join(', ')}. Donner la moyenne, la médiane et l'étendue.`;
+    a.innerHTML = `<strong>Correction :</strong><br>Moyenne = ${sum}/${notes.length} = <span class="highlight">${mean}</span><br>Médiane = <span class="highlight">${med}</span><br>Étendue = ${notes[notes.length-1]} - ${notes[0]} = <span class="highlight">${range}</span><br><br><strong>Cheminement :</strong> on range les notes, puis on calcule les trois indicateurs.`;
+  } else if (meta.kind === 'space') {
+    const r = randInt(3, 8);
+    const h = randInt(5, 15);
+    const v = (3.14 * r * r * h).toFixed(0);
+    q.innerHTML = `Un cylindre a un rayon de ${r} cm et une hauteur de ${h} cm. Calculer son volume avec π ≈ 3,14.`;
+    a.innerHTML = `<strong>Correction :</strong><br>V = πr²h = 3,14 × ${r}² × ${h}<br>= 3,14 × ${r*r} × ${h} = <span class="highlight">${v} cm³</span><br><br><strong>Cheminement :</strong> on élève le rayon au carré, puis on multiplie par π et par la hauteur.`;
+  } else if (meta.kind === 'energie') {
+    const conso = randInt(80, 200);
+    const utile = randInt(Math.floor(conso*0.1), Math.floor(conso*0.6));
+    const rend = Math.round((utile / conso) * 100);
+    q.innerHTML = `Un système consomme ${conso} J et produit ${utile} J utiles. Calculer le rendement.`;
+    a.innerHTML = `<strong>Correction :</strong><br>η = (${utile} / ${conso}) × 100 = <span class="highlight">${rend}%</span><br><br><strong>Cheminement :</strong> rendement = énergie utile / énergie consommée × 100.`;
+  }
+
+  a.classList.remove('show');
+}
+
+document.querySelectorAll('.tab').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('.tab').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    const target = document.getElementById('pane-' + btn.dataset.tab);
+    if (target) target.classList.add('active');
+    window.scrollTo({top: 0, behavior: 'smooth'});
+  });
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  for (const id of Object.keys(CHAPTERS)) {
+    if (CHAPTERS[id].kind !== 'text') {
+      regen(id);
+    }
+  }
+});
+
+</script>
+</body>
+</html>
